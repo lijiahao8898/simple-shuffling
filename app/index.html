@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./style/index.css">
+</head>
+<body>
+<div class="wheel">
+    <ul>
+        <li><img src="./assets/4b71326f-9007-4519-8e02-8f789caaad6e.jpg"></li>
+        <li><img src="./assets/4d1cd7aa-1b6f-49a0-8e0b-b65c73a53ad8.jpg"></li>
+        <li><img src="./assets/8625d9f3-c059-4dc6-b915-37bb5ea7e6a3.jpg"></li>
+    </ul>
+</div>
+</body>
+
+<script src="./src/jquery-3.2.1.min.js"></script>
+<script>
+    ;(function ($) {
+        var main = {
+            init: function () {
+                this.li = $('.wheel li');
+                this.ul = $('.wheel ul');
+                var ulWidth = this.li.length * 20;
+
+                for (var i = 0; i < this.li.length; i++) {
+                    var liWidth = this.li.eq(i).width();
+                    ulWidth = ulWidth + liWidth;
+                }
+                this.ul.css({
+                    "width": ulWidth + 'px'
+                });
+                this.wheel();
+            },
+            wheel: function () {
+                var number = 0;
+                var length = this.li.length;
+                var that = this;
+                var scrollWidth = 0;
+
+                setInterval(function () {
+                    that.ul.css({
+                        'left': '-' + scrollWidth + 'px'
+                    });
+                    scrollWidth = scrollWidth + that.li.eq(number).width() + 20;
+                    if (number >= length - 1) {
+                        number = 0;
+                        scrollWidth = 0;
+                    } else {
+                        number += 1;
+                    }
+                }, 2000)
+            }
+        };
+
+        $(function () {
+            main.init();
+        })
+    })($);
+</script>
+</html>
